@@ -1,6 +1,14 @@
+using Employee_Service.Data;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Employee_Service.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<EmployeeDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbCon"));
+});
 
 // Add services to the container.
 
@@ -34,6 +42,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 
 app.Run();
